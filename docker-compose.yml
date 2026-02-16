@@ -1,0 +1,15 @@
+services:
+  document-qa:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      # Maps the local 'data' folder to '/app/data' inside the container
+      - ./data:/app/data
+    environment:
+      - DATABASE_URL=/app/data/docs.db
+      - RETRIEVER_MODEL_PATH=/app/retriever_onnx/model.onnx
+      - GENERATOR_DIRECTORY_PATH=/app/generator_onnx/
+      - CHUNK_SIZE=500
+      - CHUNK_OVERLAP=50
+    restart: always
